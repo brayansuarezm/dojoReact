@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  background-image: url('./galaxy-space.jpg');
+  background-repeat: repeat-y;
 }
 
 .App-logo {
@@ -9,9 +11,11 @@
 
 .App-header {
   background-color: #222;
-  height: 150px;
-  padding: 20px;
+  height: 600px;
+  padding: 100px;
+  background-repeat: repeat-y;
   color: white;
+  background-image: url('./galaxy-space.jpg');
 }
 
 .App-intro {

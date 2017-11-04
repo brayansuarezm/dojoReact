@@ -1,40 +1,40 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Resultado from './Resultado.js';
 
 class App extends Component {
   constructor(props){
     super(props);
     this.state={
-      texto: "",
-      texto2: ""
+      resultados:[]
     }
-    this.actualizarTexto=this.actualizarTexto.bind(this);
-    this.actualizarTexto2=this.actualizarTexto2.bind(this);
+    this.buscar=this.buscar.bind(this);
   }
 
-  actualizarTexto(arg){
-    this.setState({texto: arg.target.value});
-  }
-
-  actualizarTexto2(arg){
-    this.setState({texto2: arg.target.value});
+  buscar(articulo){
+    fetch('https://api.mercadolibre.com/sites/MCO/search?q='+articulo.target.value)
+    .then(function(resultado){
+      return resultado.json()
+    }).then((json)=>{
+      this.setState({resultados:json.results})
+    })
   }
 
   render() {
     return (
       <div className="App">
         <div className="App-header">
-          <input type="text" placeHolder="Texto" onChange={this.actualizarTexto} onFocus={this.value=""}/>
-          <input type="text" placeHolder="Texto" onChange={this.actualizarTexto2} onFocus={this.value=""}/>
-          <p>
-            {this.state.texto}
-            {this.state.texto2}
-          </p>
+          <p>Resultado</p>
+          <input type="text" placeHolder="Texto" onChange={this.buscar.bind(this)} onFocus={this.value=""}/>
+          {
+            this.state.resultados
+            .map(function(resultado){
+              return <Resultado resultado={resultado}>
+              </Resultado>
+            })
+          }
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
       </div>
     );
   }
